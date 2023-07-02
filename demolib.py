@@ -1,6 +1,6 @@
 import difflib
 
-class color:
+class Color:
     _WHITE = '\033[97m'
     _CYAN = '\033[96m'
     _MAGENTA = '\033[95m'
@@ -14,39 +14,39 @@ class color:
 
     @staticmethod
     def white(text, bold=False, italic=False):
-        return color._WHITE + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._WHITE + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def cyan(text, bold=False, italic=False):
-        return color._CYAN + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._CYAN + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def magenta(text, bold=False, italic=False):
-        return color._MAGENTA + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._MAGENTA + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def blue(text, bold=False, italic=False):
-        return color._BLUE + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._BLUE + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def yellow(text, bold=False, italic=False):
-        return color._YELLOW + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._YELLOW + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def green(text, bold=False, italic=False):
-        return color._GREEN + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._GREEN + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
     
     @staticmethod
     def red(text, bold=False, italic=False):
-        return color._RED + (color._BOLD if bold else '') + (color._ITALIC if italic else '') + text + color._END
+        return Color._RED + (Color._BOLD if bold else '') + (Color._ITALIC if italic else '') + text + Color._END
 
     @staticmethod
     def bold(text):
-        return color._BOLD + text + color._END
+        return Color._BOLD + text + Color._END
 
     @staticmethod
     def italic(text):
-        return color._ITALIC + text + color._END
+        return Color._ITALIC + text + Color._END
 
 def numbered_code(code):
     code_lines = code.splitlines(True)
@@ -84,21 +84,21 @@ def apply_changes(code, changes: list):
             code_lines.insert(line, content + "\n")
 
     # Print explanations
-    print(color.blue("Explanations:", bold=True))
+    print(Color.blue("Explanations:", bold=True))
     for explanation in explanations:
-        print(color.blue(f"- {explanation}"))
+        print(Color.blue(f"- {explanation}"))
 
     # Show the diff
-    print(color.cyan("\nChanges:", bold=True))
+    print(Color.cyan("\nChanges:", bold=True))
     diff = difflib.unified_diff(
         original_code_lines, code_lines, lineterm="")
     for line in diff:
         if line.startswith("+"):
-            print(color.green(line), end="")
+            print(Color.green(line), end="")
         elif line.startswith("-"):
-            print(color.red(line), end="")
+            print(Color.red(line), end="")
         else:
             print(line, end="")
 
-    print(color.white("\n##### Updated Code #####", bold=True))
+    print(Color.white("\n##### Updated Code #####", bold=True))
     print("".join(code_lines))
