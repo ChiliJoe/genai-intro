@@ -59,13 +59,13 @@ function_list = {
         "function": do_search,
         "description": {
             "name": "do_search",
-            "description": "Search the web",
+            "description": "Search google for current information",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "search_term": {
                         "type": "string",
-                        "description": "The search term"
+                        "description": "The term to search for in the web"
                     },
                 },
                 "required": ["search_term"],
