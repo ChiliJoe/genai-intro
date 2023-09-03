@@ -1,6 +1,30 @@
 import requests
 import os
+from serpapi import GoogleSearch
 
+
+def do_search(search_term):
+    params = {
+        "engine": "google",
+        "q": search_term,
+        "api_key": os.getenv('SERPAPI_API_KEY')
+    }
+
+    search = GoogleSearch(params)
+    results = search.get_dict()
+
+    result_list = [
+        {
+            'position': item['position'],
+            'title': item['title'],
+            'snippet': item['snippet'] if 'snippet' in item else '',
+            'languages': item['about_this_result']['languages'][0] if 'about_this_result' in item and 'languages' in item['about_this_result'] else '',
+            'regions': item['about_this_result']['regions'][0] if 'about_this_result' in item and 'regions' in item['about_this_result'] else ''
+        }
+        for item in results["organic_results"]
+    ]
+
+    return result_list
 
 def get_current_weather(lat, lon, unit):
     url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units={unit}&appid={os.getenv('OWM_API_KEY')}"
@@ -31,6 +55,23 @@ def get_location_data(city, country, state=None):
 
 
 function_list = {
+    "do_search":     {
+        "function": do_search,
+        "description": {
+            "name": "do_search",
+            "description": "Search the web",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "search_term": {
+                        "type": "string",
+                        "description": "The search term"
+                    },
+                },
+                "required": ["search_term"],
+            },
+        }
+    },
     "get_current_weather":     {
         "function": get_current_weather,
         "description": {
