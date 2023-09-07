@@ -86,7 +86,7 @@ function_list = {
                     },
                     "lon": {
                         "type": "number",
-                        "description": "latitude",
+                        "description": "longitude",
                     },
                     "unit": {
                         "type": "string",
